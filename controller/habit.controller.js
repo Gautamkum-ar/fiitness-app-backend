@@ -1,3 +1,4 @@
+import { ErrorMessage, SuccessMessage } from "../const/message.js";
 import exerciseModel from "../models/exercise-model.js";
 
 // @desc add new exercise
@@ -7,6 +8,11 @@ export const addExercise = async (req, res) => {
 	const { name, duration, calories } = req.body;
 
 	try {
+		if (!name || !duration || !calories) {
+			return res.status(400).json({
+				message:ErrorMessage.MISING_FIELD,
+			});
+		}
 		const newExercise = new exerciseModel({
 			name: name,
 			duration: duration,
@@ -15,12 +21,14 @@ export const addExercise = async (req, res) => {
 		await newExercise.save();
 
 		return res.status(200).json({
-			message: "Exercies Add successfully",
+			message: SuccessMessage.HABIT_ADDED,
 			success: true,
 			data: newExercise,
 		});
 	} catch (error) {
-		throw error;
+		return res.status(500).json({
+			message:error.message,
+		});
 	}
 };
 
@@ -32,12 +40,14 @@ export const getAllExercise = async (req, res) => {
 		const foundExecises = await exerciseModel.find();
 
 		return res.status(200).json({
-			message: "Exercise found success",
+			message: SuccessMessage.HABIT_LOAD,
 			success: true,
 			data: foundExecises,
 		});
 	} catch (error) {
-		throw error;
+		return res.status(500).json({
+			message:error.message,
+		});
 	}
 };
 
@@ -48,13 +58,20 @@ export const deleteExercise=async(req,res)=>{
     const {exerciseId}=req.params
 
     try {
+		if(!exerciseId){
+			return res.status(400).json({
+				message:ErrorMessage.MISING_FIELD
+			})
+		}
         await exerciseModel.findByIdAndDelete({_id:exerciseId})
         return res.status(204).json({
-            message:"Exercise Remove successfully",
+            message:SuccessMessage.HABIT_REMOVE,
             success:true
         })
     } catch (error) {
-        throw error
+		return res.status(500).json({
+			message:error.message,
+		});
         
     }
 }

@@ -7,8 +7,8 @@ import {
 
 const Router = express.Router();
 
-Router.post("/add-exercise", addExercise);
 Router.get("/exercises", getAllExercise);
+Router.post("exercises/add-exercise", addExercise);
 Router.delete("/exercises/:exerciseId", deleteExercise);
 
 export default Router;

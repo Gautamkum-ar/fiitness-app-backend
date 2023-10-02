@@ -9,4 +9,21 @@ const foodSchema = new mongoose.Schema({
 		type: Number,
 		required: true,
 	},
+	protein: {
+		type: Number,
+		required: true,
+	},
+	carbohydrate: {
+		type: Number,
+		required: true,
+	},
+    fat:{
+        type :Number ,
+        required:true
+    }
+},{
+    timestamps:true
 });
+
+
+export default mongoose.model('foods',foodSchema)
