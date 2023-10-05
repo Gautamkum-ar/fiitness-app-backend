@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import "./database/initial.db.js";
 import Router from "./routes/exercise.route.js";
 import FoodRouter from "./routes/food.route.js";
+import GoalRouter from "./routes/goal.route.js";
 
 const app = express();
 dotenv.config();
@@ -13,11 +14,12 @@ app.use(
 		origin: "*",
 	})
 );
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/v1/api", Router);
 app.use("/v1/api", FoodRouter);
+app.use("/v1/api", GoalRouter);
 
 app.use("*", (req, res) => {
 	res.status(404).json({

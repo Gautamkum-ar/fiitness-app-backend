@@ -25,7 +25,7 @@ export const getAllFoods = async (req, res) => {
 export const addFood = async (req, res) => {
 	const { foodName, calories, protien, fat, carbohydrate } = req.body;
 	try {
-		if (!foodName || !calories || !protien || fat || carbohydrate) {
+		if (!foodName || !calories || !protien || !fat || !carbohydrate) {
 			return res.status(400).json({
 				message: ErrorMessage.MISING_FIELD,
 				success: false,
@@ -34,7 +34,7 @@ export const addFood = async (req, res) => {
 		const newFood = new foodModel({
 			foodName: foodName,
 			calories: parseInt(calories),
-			protien: parseInt(protien),
+			protein: parseInt(protien),
 			fat: parseInt(fat),
 			carbohydrate: parseInt(carbohydrate),
 		});
@@ -48,6 +48,7 @@ export const addFood = async (req, res) => {
 			return res.status(200).json({
 				message: SuccessMessage.FOOD_ADDED,
 				success: true,
+				data: savedData,
 			});
 		}
 	} catch (error) {

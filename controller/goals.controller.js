@@ -7,12 +7,7 @@ import goalModel from "../models/goal-model.js";
 export const getAllGoals = async (req, res) => {
 	try {
 		const findAllGoals = await goalModel.find();
-		if (!findAllGoals.length) {
-			return res.status(404).json({
-				message: "Goals not found",
-				success: false,
-			});
-		}
+
 		return res.status(200).json({
 			message: SuccessMessage.GOAL_LOAD,
 			success: true,

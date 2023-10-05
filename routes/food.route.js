@@ -3,7 +3,7 @@ import {
 	addFood,
 	getAllFoods,
 	removeFood,
-} from "../controller/food.controller";
+} from "../controller/food.controller.js";
 
 const FoodRouter = express.Router();
 
